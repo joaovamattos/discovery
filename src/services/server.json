@@ -1,0 +1,76 @@
+{
+  "continents": [
+    { "key": "africa", "title": "Africa" },
+    { "key": "asia", "title": "Asia" },
+    { "key": "central_america", "title": "Central America" },
+    { "key": "europe", "title": "Europe" },
+    { "key": "oceania", "title": "Oceania" },
+    { "key": "south_america", "title": "South America" },
+    { "key": "north_america", "title": "North America" }
+  ],
+  "cities": [
+    {
+      "id": 1,
+      "name": "Cape Town",
+      "about": "Cape Town is a port city on the southwest coast of South Africa, on a peninsula at the foot of the imposing Table Mountain. Trams slowly ascend to the flat top of the mountain, which boasts panoramic views of the city, the bustling port and the boats en route to Robben Island, the famous prison in which Nelson Mandela was incarcerated and which is now a museum.",
+      "photo": "https://images.pexels.com/photos/259447/pexels-photo-259447.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+      "country": "South Africa",
+      "continent": "Africa",
+      "spotlight": false
+    },
+    {
+      "id": 2,
+      "name": "Tokyo",
+      "about": "I wonder if you know, How they live in Tokyo, If you see me then you mean it, Then you know you have to go, Fast and furious (Drift, Drift, Drift), Fast and furious (Drift, Drift, Drift), Irashai ii, omachito sama. ♪♫",
+      "photo": "https://images.pexels.com/photos/5197157/pexels-photo-5197157.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "country": "Japan",
+      "continent": "Asia",
+      "spotlight": true
+    },
+    {
+      "id": 3,
+      "name": "City of México",
+      "about": "Ahhhhhh-ahhoo ayy! What color's the sky? Ay, mi amor, ay, mi amor You tell me that it's red, ay, mi amor, ay, mi amor Where should I put my shoes? Ay, mi amor, ay, mi amor You say, put them on your head! Ay, mi amor, ay, mi amor ♪♫",
+      "photo": "https://images.pexels.com/photos/763429/pexels-photo-763429.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "country": "México",
+      "continent": "Central America",
+      "spotlight": true
+    },
+    {
+      "id": 4,
+      "name": "London",
+      "about": "London, the capital of England and the United Kingdom, is a 21st century city with a history that dates back to the Roman era. Its center is home to the imposing seats of Parliament, the famous Big Ben clock tower and Westminster Abbey, the site of the coronation of British monarchs. On the other side of the River Thames, the London Eye ferris wheel has a panoramic view of the cultural complex on the south bank and the entire city.",
+      "photo": "https://images.pexels.com/photos/3220846/pexels-photo-3220846.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "country": "England",
+      "continent": "Europe",
+      "spotlight": true
+    },
+    {
+      "id": 5,
+      "name": "Sydney",
+      "about": "Sydney, capital of the state of New South Wales and one of the largest cities in Australia, is especially known for the Sydney Opera House, which is on the waterfront and has a design inspired by boat sails. The huge Darling Port and the smaller Circular Quay port are centers of seaside living. Nearby are the arch-shaped Sydney Harbor Bridge and the Royal Botanic Gardens.",
+      "photo": "https://images.pexels.com/photos/2193300/pexels-photo-2193300.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "country": "Australia",
+      "continent": "Oceania",
+      "spotlight": false
+    },
+    {
+      "id": 6,
+      "name": "Rio de Janeiro",
+      "about": "Rio de Janeiro is a large Brazilian city by the sea, famous for the beaches of Copacabana and Ipanema, for the 38 meter high statue of Christ the Redeemer, on top of Corcovado, and for the Sugarloaf Mountain, a granite peak with cable cars. to its summit.",
+      "photo": "https://images.pexels.com/photos/2868242/pexels-photo-2868242.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "country": "Brazil",
+      "continent": "South America",
+      "spotlight": true
+    },
+    {
+      "id": 7,
+      "name": "Detroit",
+      "about": "Detroit: Become Human",
+      "photo": "https://images.pexels.com/photos/702343/pexels-photo-702343.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "country": "United States",
+      "continent": "North America",
+      "spotlight": false
+    }
+  ]
+}
