@@ -2,14 +2,15 @@ import styled from "styled-components/native";
 import colors from "../../styles/colors";
 import fonts from "../../styles/fonts";
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
-  padding: 32px;
+  padding-left: 32px;
 `;
 
 export const Logo = styled.Image`
   width: 154px;
   height: 36px;
+  margin-top: 32px;
   margin-bottom: 48px;
 `;
 
@@ -21,10 +22,20 @@ export const Title = styled.Text`
 `;
 
 export const ContinentsList = styled.FlatList`
-  margin: 24px 0;
-  max-height: 36px;
+  background: ${colors.background};
+  padding: 24px 0;
 `;
 
 export const SpotlightList = styled.FlatList`
-  max-height: 240px;
+  max-height: 200px;
+  height: 100%;
+`;
+
+export const Subtitle = styled.Text`
+  color: ${colors.white};
+  font-family: ${fonts.bold};
+  font-size: 18px;
+  line-height: 22px;
+  background: ${colors.background};
+  padding: 24px 0;
 `;

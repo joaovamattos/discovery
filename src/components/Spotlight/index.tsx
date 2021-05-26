@@ -1,9 +1,17 @@
 import React from "react";
 
-import { Text } from "react-native";
 import { RectButtonProps } from "react-native-gesture-handler";
+import { LinearGradient } from "expo-linear-gradient";
 
-import { Container, Title, ImgBackground } from "./styles";
+import {
+  Container,
+  Title,
+  ImgBackground,
+  SaveWrapper,
+  SaveButton,
+} from "./styles";
+import { Feather } from "@expo/vector-icons";
+import colors from "../../styles/colors";
 
 interface SpotlightProps extends RectButtonProps {
   data: {
@@ -25,7 +33,18 @@ function Spotlight({ data, ...rest }: SpotlightProps) {
         resizeMode="cover"
         imageStyle={{ borderRadius: 32 }}
       >
-        <Title>{data.name}</Title>
+        <SaveWrapper>
+          <SaveButton>
+            <Feather name="bookmark" size={18} color={colors.gray} />
+          </SaveButton>
+        </SaveWrapper>
+
+        <LinearGradient
+          colors={["transparent", "#000"]}
+          style={{ borderRadius: 32 }}
+        >
+          <Title numberOfLines={1}>{data.name}</Title>
+        </LinearGradient>
       </ImgBackground>
     </Container>
   );

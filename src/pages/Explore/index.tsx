@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Text, FlatList } from "react-native";
 
 import logoImage from "../../assets/logo.png";
+import Card from "../../components/Card";
 import ContinentButton from "../../components/ContinentButton";
 import Spotlight from "../../components/Spotlight";
 import server from "../../services/server.json";
@@ -13,6 +14,7 @@ import {
   Title,
   ContinentsList,
   SpotlightList,
+  Subtitle,
 } from "./styles";
 
 interface ContinentProps {
@@ -74,7 +76,10 @@ function Explore() {
   }, []);
 
   return (
-    <Container>
+    <Container
+      stickyHeaderIndices={[2, 4]}
+      showsVerticalScrollIndicator={false}
+    >
       <Logo source={logoImage} />
       <Title>Explore</Title>
 
@@ -99,6 +104,12 @@ function Explore() {
         horizontal
         showsHorizontalScrollIndicator={false}
       />
+
+      <Subtitle>Popular</Subtitle>
+
+      {cities &&
+        cities?.length > 0 &&
+        cities.map((city) => <Card key={city.id} data={city} />)}
     </Container>
   );
 }
