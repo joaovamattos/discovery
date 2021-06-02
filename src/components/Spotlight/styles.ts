@@ -24,7 +24,7 @@ export const Title = styled.Text`
 export const SaveWrapper = styled.View`
   align-items: flex-end;
 `;
-export const SaveButton = styled.TouchableOpacity`
+export const SaveButton = styled(RectButton)`
   margin: 16px;
   height: 36px;
   width: 36px;

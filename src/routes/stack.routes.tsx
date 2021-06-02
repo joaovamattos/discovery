@@ -5,6 +5,7 @@ import colors from "../styles/colors";
 
 import Welcome from "../pages/Welcome";
 import Explore from "../pages/Explore";
+import City from "../pages/City";
 
 const StackRoutes = createStackNavigator();
 
@@ -20,6 +21,7 @@ const AppRoutes: React.FC = () => {
     >
       <StackRoutes.Screen name="Welcome" component={Welcome} />
       <StackRoutes.Screen name="Explore" component={Explore} />
+      <StackRoutes.Screen name="City" component={City} />
     </StackRoutes.Navigator>
   );
 };

@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/core";
 import React from "react";
 
 import { RectButtonProps } from "react-native-gesture-handler";
@@ -17,8 +18,13 @@ interface CardProps extends RectButtonProps {
 }
 
 function Card({ data, ...rest }: CardProps) {
+  const navigation = useNavigation();
+
   return (
-    <Container {...rest}>
+    <Container
+      {...rest}
+      onPress={() => navigation.navigate("City", { city: data })}
+    >
       <Image source={{ uri: data.photo }} resizeMode="cover" />
 
       <Wrapper>

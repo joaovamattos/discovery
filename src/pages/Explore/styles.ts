@@ -21,12 +21,12 @@ export const Title = styled.Text`
   line-height: 46px;
 `;
 
-export const ContinentsList = styled.FlatList`
+export const ContinentsList = styled.View`
   background: ${colors.background};
   padding: 24px 0;
 `;
 
-export const SpotlightList = styled.FlatList`
+export const SpotlightList = styled.View`
   max-height: 200px;
   height: 100%;
 `;

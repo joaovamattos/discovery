@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Text, FlatList } from "react-native";
+import { FlatList } from "react-native";
 
 import logoImage from "../../assets/logo.png";
 import Card from "../../components/Card";
@@ -83,27 +83,31 @@ function Explore() {
       <Logo source={logoImage} />
       <Title>Explore</Title>
 
-      <ContinentsList
-        data={continents}
-        keyExtractor={(item) => String(item.key)}
-        renderItem={({ item }) => (
-          <ContinentButton
-            title={item.title}
-            active={selectedContinents.includes(item.key)}
-            onPress={() => handleSelectContinents(item.key)}
-          />
-        )}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-      />
+      <ContinentsList>
+        <FlatList
+          data={continents}
+          keyExtractor={(item) => String(item.key)}
+          renderItem={({ item }) => (
+            <ContinentButton
+              title={item.title}
+              active={selectedContinents.includes(item.key)}
+              onPress={() => handleSelectContinents(item.key)}
+            />
+          )}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        />
+      </ContinentsList>
 
-      <SpotlightList
-        data={spotlights}
-        keyExtractor={(_, index) => String(index)}
-        renderItem={({ item }) => <Spotlight data={item} />}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-      />
+      <SpotlightList>
+        <FlatList
+          data={spotlights}
+          keyExtractor={(_, index) => String(index)}
+          renderItem={({ item }) => <Spotlight data={item} />}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        />
+      </SpotlightList>
 
       <Subtitle>Popular</Subtitle>
 

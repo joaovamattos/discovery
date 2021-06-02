@@ -12,6 +12,7 @@ import {
 } from "./styles";
 import { Feather } from "@expo/vector-icons";
 import colors from "../../styles/colors";
+import { useNavigation } from "@react-navigation/core";
 
 interface SpotlightProps extends RectButtonProps {
   data: {
@@ -26,8 +27,13 @@ interface SpotlightProps extends RectButtonProps {
 }
 
 function Spotlight({ data, ...rest }: SpotlightProps) {
+  const navigation = useNavigation();
+
   return (
-    <Container {...rest}>
+    <Container
+      {...rest}
+      onPress={() => navigation.navigate("City", { city: data })}
+    >
       <ImgBackground
         source={{ uri: data.photo }}
         resizeMode="cover"
