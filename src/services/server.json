@@ -13,7 +13,7 @@
       "id": 1,
       "name": "Cape Town",
       "about": "Cape Town is a port city on the southwest coast of South Africa, on a peninsula at the foot of the imposing Table Mountain. Trams slowly ascend to the flat top of the mountain, which boasts panoramic views of the city, the bustling port and the boats en route to Robben Island, the famous prison in which Nelson Mandela was incarcerated and which is now a museum.",
-      "photo": "https://images.pexels.com/photos/259447/pexels-photo-259447.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+      "photo": "https://images.pexels.com/photos/259447/pexels-photo-259447.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
       "country": "South Africa",
       "continent": "Africa",
       "spotlight": false

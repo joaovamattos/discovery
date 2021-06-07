@@ -1,5 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import TabsRoutes from "./tabs.routes";
 
 import colors from "../styles/colors";
 
@@ -20,7 +21,7 @@ const AppRoutes: React.FC = () => {
       }}
     >
       <StackRoutes.Screen name="Welcome" component={Welcome} />
-      <StackRoutes.Screen name="Explore" component={Explore} />
+      <StackRoutes.Screen name="Explore" component={TabsRoutes} />
       <StackRoutes.Screen name="City" component={City} />
     </StackRoutes.Navigator>
   );

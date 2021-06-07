@@ -5,6 +5,7 @@ import fonts from "../../styles/fonts";
 export const Container = styled.ScrollView`
   flex: 1;
   padding-left: 32px;
+  background: ${colors.background};
 `;
 
 export const Logo = styled.Image`
