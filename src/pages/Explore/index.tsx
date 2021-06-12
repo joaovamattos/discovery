@@ -34,7 +34,9 @@ interface City {
 
 function Explore() {
   const [cities, setCities] = useState<City[]>();
+  const [filteredCities, setFilteredCities] = useState<City[]>();
   const [spotlights, setSpotlights] = useState<City[]>();
+  const [filteredSpotlights, setFilteredSpotlights] = useState<City[]>();
   const [continents, setContinents] = useState<ContinentProps[]>();
   const [selectedContinents, setSelectedContinents] = useState<string[]>([
     "all",
@@ -68,12 +70,45 @@ function Explore() {
 
     const citiesResponse = server.cities;
     setCities(citiesResponse);
+    setFilteredCities(citiesResponse);
 
     const spotlightCities = citiesResponse.filter(
       (element) => element.spotlight === true
     );
     setSpotlights(spotlightCities);
+    setFilteredSpotlights(spotlightCities);
   }, []);
+
+  useEffect(() => {
+    if (selectedContinents.includes("all")) {
+      setFilteredCities(cities);
+      setFilteredSpotlights(spotlights);
+    } else {
+      setFilteredSpotlights(
+        spotlights?.filter((city) => {
+          let hasCity = false;
+          continents?.forEach((continent) => {
+            if (selectedContinents.includes(city.continent)) {
+              hasCity = true;
+            }
+          });
+          return hasCity;
+        })
+      );
+
+      setFilteredCities(
+        cities?.filter((city) => {
+          let hasCity = false;
+          continents?.forEach((continent) => {
+            if (selectedContinents.includes(city.continent)) {
+              hasCity = true;
+            }
+          });
+          return hasCity;
+        })
+      );
+    }
+  }, [selectedContinents, cities]);
 
   return (
     <Container
@@ -99,21 +134,23 @@ function Explore() {
         />
       </ContinentsList>
 
-      <SpotlightList>
-        <FlatList
-          data={spotlights}
-          keyExtractor={(_, index) => String(index)}
-          renderItem={({ item }) => <Spotlight data={item} />}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        />
-      </SpotlightList>
+      {filteredSpotlights && filteredSpotlights.length > 0 && (
+        <SpotlightList>
+          <FlatList
+            data={filteredSpotlights}
+            keyExtractor={(_, index) => String(index)}
+            renderItem={({ item }) => <Spotlight data={item} />}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+          />
+        </SpotlightList>
+      )}
 
       <Subtitle>Popular</Subtitle>
 
-      {cities &&
-        cities?.length > 0 &&
-        cities.map((city) => <Card key={city.id} data={city} />)}
+      {filteredCities &&
+        filteredCities?.length > 0 &&
+        filteredCities.map((city) => <Card key={city.id} data={city} />)}
     </Container>
   );
 }

@@ -1,8 +1,9 @@
-import React from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import React, { useState, useCallback } from "react";
+import { ScrollView, Platform } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/core";
 
+import CityModal from "../../components/CityModal";
 import colors from "../../styles/colors";
 import Button from "../../components/Button";
 
@@ -17,7 +18,10 @@ import {
   About,
   AboutWrapper,
   BlurWrapper,
+  GradientWrapper,
+  ButtonWrapper,
 } from "./styles";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface Params {
   city: {
@@ -32,13 +36,18 @@ interface Params {
 }
 
 function City() {
+  const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
   const route = useRoute();
   const { city } = route.params as Params;
 
+  const handleModal = useCallback(() => {
+    setModalVisible((oldState) => !oldState);
+  }, [modalVisible]);
+
   return (
-    <Container>
-      <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <Container>
         <ImgBackground
           source={{ uri: city.photo }}
           resizeMode="cover"
@@ -50,10 +59,22 @@ function City() {
             </BackButton>
           </BackWrapper>
 
-          <BlurWrapper intensity={70} tint="dark">
-            <Title numberOfLines={1}>{city.name}</Title>
-            <Country numberOfLines={1}>{city.country}</Country>
-          </BlurWrapper>
+          {Platform.OS === "ios" ? (
+            <BlurWrapper intensity={50} tint="dark">
+              <Title numberOfLines={1}>{city.name}</Title>
+              <Country numberOfLines={1}>{city.country}</Country>
+            </BlurWrapper>
+          ) : (
+            <LinearGradient
+              colors={["transparent", "#000"]}
+              style={{ borderRadius: 32 }}
+            >
+              <GradientWrapper>
+                <Title numberOfLines={1}>{city.name}</Title>
+                <Country numberOfLines={1}>{city.country}</Country>
+              </GradientWrapper>
+            </LinearGradient>
+          )}
         </ImgBackground>
 
         <AboutWrapper>
@@ -61,9 +82,17 @@ function City() {
           <About>{city.about}</About>
         </AboutWrapper>
 
-        <Button title="Save" />
-      </ScrollView>
-    </Container>
+        <ButtonWrapper>
+          <Button title="Save" onPress={() => handleModal()} />
+        </ButtonWrapper>
+
+        <CityModal
+          handleModal={handleModal}
+          modalVisible={modalVisible}
+          city={city}
+        />
+      </Container>
+    </ScrollView>
   );
 }
 

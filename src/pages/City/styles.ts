@@ -6,13 +6,14 @@ import { Dimensions } from "react-native";
 import { BlurView } from "expo-blur";
 
 export const Container = styled.View`
-  padding: 32px;
+  padding: 0 32px;
   flex: 1;
 `;
 
 export const ImgBackground = styled.ImageBackground`
   height: ${Dimensions.get("window").height * 0.5}px;
   justify-content: space-between;
+  margin-top: 32px;
   margin-bottom: 24px;
 `;
 
@@ -66,6 +67,14 @@ export const About = styled.Text`
 `;
 
 export const BlurWrapper = styled(BlurView)`
+  padding-top: 36px;
+  border-radius: 32px;
+`;
+
+export const ButtonWrapper = styled.View`
+  margin-bottom: 32px;
+`;
+export const GradientWrapper = styled.View`
   padding-top: 36px;
   border-radius: 32px;
 `;

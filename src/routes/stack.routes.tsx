@@ -5,7 +5,6 @@ import TabsRoutes from "./tabs.routes";
 import colors from "../styles/colors";
 
 import Welcome from "../pages/Welcome";
-import Explore from "../pages/Explore";
 import City from "../pages/City";
 
 const StackRoutes = createStackNavigator();
