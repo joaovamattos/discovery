@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { FlatList } from "react-native";
+import CityProps from "../../@types/CityProps";
 
 import logoImage from "../../assets/logo.png";
 import Card from "../../components/Card";
@@ -22,21 +23,11 @@ interface ContinentProps {
   title: string;
 }
 
-interface City {
-  id: number;
-  name: string;
-  about: string;
-  photo: string;
-  country: string;
-  continent: string;
-  spotlight: boolean;
-}
-
 function Explore() {
-  const [cities, setCities] = useState<City[]>();
-  const [filteredCities, setFilteredCities] = useState<City[]>();
-  const [spotlights, setSpotlights] = useState<City[]>();
-  const [filteredSpotlights, setFilteredSpotlights] = useState<City[]>();
+  const [cities, setCities] = useState<CityProps[]>();
+  const [filteredCities, setFilteredCities] = useState<CityProps[]>();
+  const [spotlights, setSpotlights] = useState<CityProps[]>();
+  const [filteredSpotlights, setFilteredSpotlights] = useState<CityProps[]>();
   const [continents, setContinents] = useState<ContinentProps[]>();
   const [selectedContinents, setSelectedContinents] = useState<string[]>([
     "all",

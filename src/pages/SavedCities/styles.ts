@@ -42,3 +42,16 @@ export const DeleteButton = styled(RectButton)`
   align-items: center;
   justify-content: center;
 `;
+
+export const NoCitiesImage = styled.Image`
+  height: ${Dimensions.get("window").width * 0.7}px;
+  width: 100%;
+`;
+
+export const NoCitiesText = styled.Text`
+  color: ${colors.white};
+  font-family: ${fonts.bold};
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+`;

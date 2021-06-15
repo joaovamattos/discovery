@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Modal, Pressable } from "react-native";
 import { Rating } from "react-native-ratings";
 
+import CityProps from "../../@types/CityProps";
+import { CityController } from "../../controller/CityController";
 import colors from "../../styles/colors";
 import Button from "../Button";
 
@@ -14,22 +16,29 @@ import {
   RateText,
   Photo,
 } from "./styles";
-
 interface ModalProps {
   handleModal: () => void;
+  handleSave: () => void;
   modalVisible: boolean;
-  city: {
-    id: number;
-    name: string;
-    photo: string;
-  };
+  city: CityProps;
 }
 
-function CityModal({ handleModal, modalVisible, city }: ModalProps) {
+function CityModal({
+  handleModal,
+  modalVisible,
+  city,
+  handleSave,
+}: ModalProps) {
   const [rating, setRating] = useState(3);
 
   function ratingCompleted(rating: number) {
     setRating(rating);
+  }
+
+  async function handleSubmit() {
+    const cityController = new CityController();
+    await cityController.store(city, rating);
+    handleSave();
   }
 
   return (
@@ -65,7 +74,7 @@ function CityModal({ handleModal, modalVisible, city }: ModalProps) {
             />
 
             <ButtonWrapper>
-              <Pressable onPress={() => handleModal()}>
+              <Pressable onPress={() => handleSubmit()}>
                 <Button title="Done" />
               </Pressable>
             </ButtonWrapper>

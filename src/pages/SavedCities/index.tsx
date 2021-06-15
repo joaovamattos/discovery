@@ -1,84 +1,53 @@
 import { Feather } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
+import { View } from "react-native";
 import { Animated } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
+import CityProps from "../../@types/CityProps";
 
 import logoImage from "../../assets/logo.png";
+import notFound from "../../assets/notFound.png";
+
 import Card from "../../components/Card";
-import server from "../../services/server.json";
+import { CityController } from "../../controller/CityController";
 import colors from "../../styles/colors";
-import City from "../City";
 
-import { Container, Logo, Title, DeleteButton, CardWrapper } from "./styles";
-
-interface ContinentProps {
-  key: string;
-  title: string;
-}
-
-interface City {
-  id: number;
-  name: string;
-  about: string;
-  photo: string;
-  country: string;
-  continent: string;
-  spotlight: boolean;
-}
+import {
+  Container,
+  Logo,
+  Title,
+  DeleteButton,
+  CardWrapper,
+  NoCitiesImage,
+  NoCitiesText,
+} from "./styles";
 
 function SavedCities() {
-  const [cities, setCities] = useState<City[]>();
-  const [spotlights, setSpotlights] = useState<City[]>();
-  const [continents, setContinents] = useState<ContinentProps[]>();
-  const [selectedContinents, setSelectedContinents] = useState<string[]>([
-    "all",
-  ]);
-
-  function handleSelectContinents(key: string) {
-    if (key === "all") {
-      return setSelectedContinents(["all"]);
-    }
-
-    if (selectedContinents[0] === "all") {
-      return setSelectedContinents([key]);
-    }
-
-    if (selectedContinents.includes(key)) {
-      if (selectedContinents.length > 1) {
-        const filteredContinents = selectedContinents.filter(
-          (element) => element !== key
-        );
-        return setSelectedContinents(filteredContinents);
-      }
-      return setSelectedContinents(["all"]);
-    }
-
-    setSelectedContinents([...selectedContinents, key]);
-  }
+  const [cities, setCities] = useState<CityProps[]>();
 
   useEffect(() => {
-    const constinentsResponse = server.continents;
-    setContinents([{ key: "all", title: "All" }, ...constinentsResponse]);
+    async function loadSavedCities() {
+      const cityController = new CityController();
 
-    const citiesResponse = server.cities;
-    setCities(citiesResponse);
+      const citiesResponse = await cityController.index();
+      setCities(citiesResponse);
+    }
+    loadSavedCities();
+  }, [cities]);
 
-    const spotlightCities = citiesResponse.filter(
-      (element) => element.spotlight === true
-    );
-    setSpotlights(spotlightCities);
-  }, []);
+  async function handleDelete(city: CityProps) {
+    const cityController = new CityController();
+
+    await cityController.delete(city);
+    setCities(cities?.filter((city) => city));
+  }
 
   return (
-    <Container
-      stickyHeaderIndices={[2, 4]}
-      showsVerticalScrollIndicator={false}
-    >
+    <Container stickyHeaderIndices={[]} showsVerticalScrollIndicator={false}>
       <Logo source={logoImage} />
       <Title>My saved cities</Title>
 
-      {cities &&
-        cities?.length > 0 &&
+      {cities && cities.length > 0 ? (
         cities.map((city) => (
           <CardWrapper key={city.id}>
             <Swipeable
@@ -88,16 +57,25 @@ function SavedCities() {
               useNativeAnimations={true}
               renderRightActions={() => (
                 <Animated.View>
-                  <DeleteButton onPress={() => {}}>
+                  <DeleteButton onPress={() => handleDelete(city)}>
                     <Feather name="trash-2" size={24} color={colors.white} />
                   </DeleteButton>
                 </Animated.View>
               )}
             >
-              <Card data={{ ...city, rating: 5 }} />
+              <Card data={{ ...city }} />
             </Swipeable>
           </CardWrapper>
-        ))}
+        ))
+      ) : (
+        <View>
+          <NoCitiesImage source={notFound} resizeMode="contain" />
+
+          <NoCitiesText>
+            No cities yet :c {"\n"} Explore to save cities :D
+          </NoCitiesText>
+        </View>
+      )}
     </Container>
   );
 }

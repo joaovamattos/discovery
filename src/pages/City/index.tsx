@@ -2,7 +2,9 @@ import React, { useState, useCallback } from "react";
 import { ScrollView, Platform } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/core";
+import { LinearGradient } from "expo-linear-gradient";
 
+import CityProps from "../../@types/CityProps";
 import CityModal from "../../components/CityModal";
 import colors from "../../styles/colors";
 import Button from "../../components/Button";
@@ -21,18 +23,13 @@ import {
   GradientWrapper,
   ButtonWrapper,
 } from "./styles";
-import { LinearGradient } from "expo-linear-gradient";
+import { CityController } from "../../controller/CityController";
 
+interface ICity extends CityProps {
+  rating?: number;
+}
 interface Params {
-  city: {
-    id: number;
-    name: string;
-    about: string;
-    photo: string;
-    country: string;
-    continent: string;
-    spotlight: boolean;
-  };
+  city: ICity;
 }
 
 function City() {
@@ -44,6 +41,18 @@ function City() {
   const handleModal = useCallback(() => {
     setModalVisible((oldState) => !oldState);
   }, [modalVisible]);
+
+  const handleSave = useCallback(() => {
+    setModalVisible((oldState) => !oldState);
+    navigation.navigate("SavedCities");
+  }, [modalVisible]);
+
+  async function handleDelete(city: CityProps) {
+    const cityController = new CityController();
+
+    await cityController.delete(city);
+    navigation.goBack();
+  }
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -82,13 +91,20 @@ function City() {
           <About>{city.about}</About>
         </AboutWrapper>
 
-        <ButtonWrapper>
-          <Button title="Save" onPress={() => handleModal()} />
-        </ButtonWrapper>
+        {city.rating ? (
+          <ButtonWrapper>
+            <Button title="Remove" onPress={() => handleDelete(city)} />
+          </ButtonWrapper>
+        ) : (
+          <ButtonWrapper>
+            <Button title="Save" onPress={() => handleModal()} />
+          </ButtonWrapper>
+        )}
 
         <CityModal
           handleModal={handleModal}
           modalVisible={modalVisible}
+          handleSave={handleSave}
           city={city}
         />
       </Container>
