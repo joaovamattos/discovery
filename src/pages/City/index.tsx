@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { ScrollView, Platform } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/core";
@@ -37,6 +37,19 @@ function City() {
   const navigation = useNavigation();
   const route = useRoute();
   const { city } = route.params as Params;
+  const [savedIds, setSavedIds] = useState<number[]>([]);
+
+  useEffect(() => {
+    async function loadSavedCities() {
+      const cityController = new CityController();
+
+      const citiesResponse = await cityController.index();
+      const savedIds = citiesResponse.map((city: ICity) => city.id);
+      setSavedIds(savedIds);
+    }
+
+    loadSavedCities();
+  }, []);
 
   const handleModal = useCallback(() => {
     setModalVisible((oldState) => !oldState);
@@ -44,7 +57,7 @@ function City() {
 
   const handleSave = useCallback(() => {
     setModalVisible((oldState) => !oldState);
-    navigation.navigate("SavedCities");
+    navigation.navigate("Saved");
   }, [modalVisible]);
 
   async function handleDelete(city: CityProps) {
@@ -91,7 +104,7 @@ function City() {
           <About>{city.about}</About>
         </AboutWrapper>
 
-        {city.rating ? (
+        {savedIds.includes(city.id) ? (
           <ButtonWrapper>
             <Button title="Remove" onPress={() => handleDelete(city)} />
           </ButtonWrapper>

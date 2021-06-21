@@ -1,7 +1,12 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
 import { RectButtonProps } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
+import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
+
+import colors from "../../styles/colors";
+import { CityController } from "../../controller/CityController";
+import CityProps from "../../@types/CityProps";
 
 import {
   Container,
@@ -10,9 +15,6 @@ import {
   SaveWrapper,
   SaveButton,
 } from "./styles";
-import { Feather } from "@expo/vector-icons";
-import colors from "../../styles/colors";
-import { useNavigation } from "@react-navigation/core";
 
 interface SpotlightProps extends RectButtonProps {
   data: {
@@ -26,8 +28,25 @@ interface SpotlightProps extends RectButtonProps {
   };
 }
 
+interface ICity extends CityProps {
+  rating?: number;
+}
+
 function Spotlight({ data, ...rest }: SpotlightProps) {
   const navigation = useNavigation();
+  const [savedIds, setSavedIds] = useState<number[]>([]);
+
+  useEffect(() => {
+    async function loadSavedCities() {
+      const cityController = new CityController();
+
+      const citiesResponse = await cityController.index();
+      const savedIds = citiesResponse.map((city: ICity) => city.id);
+      setSavedIds(savedIds);
+    }
+
+    loadSavedCities();
+  }, []);
 
   return (
     <Container
@@ -41,7 +60,11 @@ function Spotlight({ data, ...rest }: SpotlightProps) {
       >
         <SaveWrapper>
           <SaveButton>
-            <Feather name="bookmark" size={18} color={colors.gray} />
+            {savedIds.includes(data.id) ? (
+              <Feather name="bookmark" size={18} color={colors.purple} />
+            ) : (
+              <Feather name="bookmark" size={18} color={colors.gray} />
+            )}
           </SaveButton>
         </SaveWrapper>
 
