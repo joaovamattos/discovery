@@ -10,6 +10,7 @@ import {
 import Routes from "./src/routes";
 import { StatusBar } from "react-native";
 import colors from "./src/styles/colors";
+import { CitiesContextProvider } from "./src/contexts/CitiesContext";
 
 export default function App() {
   const [fonstLoaded] = useFonts({
@@ -23,9 +24,9 @@ export default function App() {
   }
 
   return (
-    <>
+    <CitiesContextProvider>
       <StatusBar barStyle="light-content" backgroundColor={colors.background} />
       <Routes />
-    </>
+    </CitiesContextProvider>
   );
 }

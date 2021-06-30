@@ -24,6 +24,7 @@ import {
   ButtonWrapper,
 } from "./styles";
 import { CityController } from "../../controller/CityController";
+import { useCities } from "../../hooks/useCities";
 
 interface ICity extends CityProps {
   rating?: number;
@@ -34,20 +35,17 @@ interface Params {
 
 function City() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [savedIds, setSavedIds] = useState<number[]>([]);
   const navigation = useNavigation();
   const route = useRoute();
   const { city } = route.params as Params;
-  const [savedIds, setSavedIds] = useState<number[]>([]);
+  const { savedCities, handleDeleteCity } = useCities();
 
   useEffect(() => {
     async function loadSavedCities() {
-      const cityController = new CityController();
-
-      const citiesResponse = await cityController.index();
-      const savedIds = citiesResponse.map((city: ICity) => city.id);
+      const savedIds = savedCities.map((city: ICity) => city.id);
       setSavedIds(savedIds);
     }
-
     loadSavedCities();
   }, []);
 
@@ -64,6 +62,8 @@ function City() {
     const cityController = new CityController();
 
     await cityController.delete(city);
+    handleDeleteCity(city);
+
     navigation.goBack();
   }
 
