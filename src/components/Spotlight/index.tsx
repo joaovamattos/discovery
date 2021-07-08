@@ -1,22 +1,12 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { RectButtonProps } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
-import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import CityModal from "../../components/CityModal";
 
-import colors from "../../styles/colors";
-import { CityController } from "../../controller/CityController";
 import CityProps from "../../@types/CityProps";
 
-import {
-  Container,
-  Title,
-  ImgBackground,
-  SaveWrapper,
-  SaveButton,
-} from "./styles";
-import { useCities } from "../../hooks/useCities";
+import { Container, Title, ImgBackground } from "./styles";
 
 interface SpotlightProps extends RectButtonProps {
   data: ICity;
@@ -34,35 +24,13 @@ interface ICity extends CityProps {
 }
 
 function Spotlight({ data, ...rest }: SpotlightProps) {
-  const { handleDeleteCity, savedCities } = useCities();
   const navigation = useNavigation();
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [saved, setSaved] = useState(() =>
-    savedCities.map((city: ICity) => city.id).includes(data.id)
-  );
-
-  useEffect(() => {
-    const savedIds = savedCities.map((city: ICity) => city.id);
-
-    console.log();
-
-    const isSaved = savedIds.includes(data.id);
-    console.log(savedCities.some(data));
-
-    setSaved(isSaved);
-  }, [savedCities]);
 
   const handleModal = useCallback(() => {
     setModalVisible((oldState) => !oldState);
   }, [modalVisible]);
-
-  async function handleDelete(city: CityProps) {
-    const cityController = new CityController();
-    await cityController.delete(city);
-
-    handleDeleteCity(city);
-  }
 
   return (
     <>
@@ -75,21 +43,13 @@ function Spotlight({ data, ...rest }: SpotlightProps) {
           resizeMode="cover"
           imageStyle={{ borderRadius: 32 }}
         >
-          <SaveWrapper>
-            <SaveButton
-              onPress={() => (saved ? handleDelete(data) : handleModal())}
-            >
-              {saved ? (
-                <Feather name="bookmark" size={18} color={colors.purple} />
-              ) : (
-                <Feather name="bookmark" size={18} color={colors.gray} />
-              )}
-            </SaveButton>
-          </SaveWrapper>
-
           <LinearGradient
-            colors={["transparent", "#000"]}
-            style={{ borderRadius: 32 }}
+            colors={["transparent", "#0C0F14"]}
+            style={{
+              borderRadius: 32,
+              height: 200,
+              justifyContent: "flex-end",
+            }}
           >
             <Title numberOfLines={1}>{data.name}</Title>
           </LinearGradient>

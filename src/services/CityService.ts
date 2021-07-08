@@ -1,6 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CityProps from "../@types/CityProps";
 
+interface SavedCity extends CityProps {
+  rating?: number;
+}
+
 class CityService {
   async store(city: CityProps, rating: number) {
     const storegedData = await AsyncStorage.getItem("@discovery:cities");
@@ -29,9 +33,10 @@ class CityService {
     const storegedData = await AsyncStorage.getItem("@discovery:cities");
 
     if (storegedData) {
-      const cities = JSON.parse(storegedData);
-      const cityPosition = cities.indexOf(city.id);
-      cities.splice(cityPosition, 1);
+      let cities = JSON.parse(storegedData);
+      cities = cities.filter(
+        (savedCity: SavedCity) => savedCity.id !== city.id
+      );
 
       await AsyncStorage.setItem("@discovery:cities", JSON.stringify(cities));
     }

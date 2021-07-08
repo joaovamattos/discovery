@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { FlatList } from "react-native";
 import CityProps from "../../@types/CityProps";
@@ -17,7 +17,6 @@ import {
   SpotlightList,
   Subtitle,
 } from "./styles";
-import { CityController } from "../../controller/CityController";
 
 interface ContinentProps {
   key: string;

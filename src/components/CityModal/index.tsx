@@ -5,7 +5,6 @@ import { Rating } from "react-native-ratings";
 import CityProps from "../../@types/CityProps";
 
 import { CityController } from "../../controller/CityController";
-import { useCities } from "../../hooks/useCities";
 
 import colors from "../../styles/colors";
 import Button from "../Button";
@@ -33,7 +32,6 @@ function CityModal({
   handleSave,
 }: ModalProps) {
   const [rating, setRating] = useState(3);
-  const { handleSetSavedCities } = useCities();
 
   function ratingCompleted(rating: number) {
     setRating(rating);
@@ -43,8 +41,6 @@ function CityModal({
     const cityController = new CityController();
     await cityController.store(city, rating);
 
-    const savedCity = { ...city, rating };
-    handleSetSavedCities(savedCity);
     handleSave();
   }
 
